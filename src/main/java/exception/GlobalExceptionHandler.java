@@ -1,7 +1,5 @@
 package exception;
 
-import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,9 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toMap;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
