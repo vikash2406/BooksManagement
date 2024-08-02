@@ -6,14 +6,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import model.Books;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -76,28 +74,24 @@ class BooksServiceImplTest {
 
     @Test
     void testSaveBookDetailNew() {
-        // Create a new book with no ID
         Books newBook = new Books("New Book", "New Author", 2024, "ISBN0003");
 
-        // Create a book with a new ID to simulate the saved book
         String generatedId = "new-uuid";
         Books savedBook = new Books(newBook.getTitle(), newBook.getAuthor(), newBook.getPublishYear(), newBook.getIsbn());
         savedBook.setId(generatedId);
 
-        // Mock the save method to return the book with the generated ID
         when(booksRepository.save(any(Books.class))).thenAnswer(invocation -> {
             Books bookToSave = invocation.getArgument(0);
-            bookToSave.setId(generatedId); // Set the mocked ID
+            bookToSave.setId(generatedId);
             return bookToSave;
         });
 
-        // Mock the findById method to return the book with the generated ID
+
         when(booksRepository.findById(generatedId)).thenReturn(Optional.of(savedBook));
 
-        // Call the method under test
         Books result = booksService.saveBookDetail(newBook);
 
-        // Verify the result
+
         assertNotNull(result);
         assertEquals(generatedId, result.getId());
         assertEquals(newBook.getTitle(), result.getTitle());
@@ -105,7 +99,6 @@ class BooksServiceImplTest {
         assertEquals(newBook.getPublishYear(), result.getPublishYear());
         assertEquals(newBook.getIsbn(), result.getIsbn());
 
-        // Verify interactions with the repository
         verify(booksRepository, times(1)).save(any(Books.class));
         verify(booksRepository, times(1)).findById(generatedId);
     }
