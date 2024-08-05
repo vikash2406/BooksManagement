@@ -4,6 +4,8 @@ package com.management.books.service.impl;
 import com.management.books.model.Books;
 import com.management.books.repository.SearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ public class BooksServiceImpl implements BookService {
     private SearchRepository searchRepository;
 
     @Override
+    @Cacheable(value = "book", key = "#id")
     public Books getBookDetail(String id) {
         return booksRepository.findById(id).orElse(null);
     }
@@ -34,6 +37,7 @@ public class BooksServiceImpl implements BookService {
     }
 
     @Override
+    @Cacheable(value = "book", key = "#books.id")
     public Books saveBookDetail(Books books) {
         if (books.getId() == null) {
             books.setId(UUID.randomUUID().toString());
@@ -43,8 +47,9 @@ public class BooksServiceImpl implements BookService {
     }
 
     @Override
-    public boolean deleteBooksDetail(String bookId) {
-        Books data = getBookDetail(bookId);
+    @CacheEvict(value = "book",key = "#id")
+    public boolean deleteBooksDetail(String id) {
+        Books data = getBookDetail(id);
         if (data != null) {
             booksRepository.delete(data);
             return true;

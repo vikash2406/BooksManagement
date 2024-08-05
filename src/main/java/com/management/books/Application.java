@@ -7,11 +7,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 import javax.annotation.PreDestroy;
 
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Book Management System", version = "2.0", description = "Books Info"))
+@EnableCaching
 public class Application implements CommandLineRunner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
