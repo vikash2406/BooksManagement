@@ -14,6 +14,6 @@ public interface BookService {
 
     boolean deleteBooksDetail(String bookId);
 
-    List<Books> searchBookDetail(String query);
+    List<Books> searchBookDetail(String author, String title) ;
 }
 

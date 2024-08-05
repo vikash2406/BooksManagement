@@ -53,8 +53,12 @@ public class BooksServiceImpl implements BookService {
     }
 
     @Override
-    public List<Books> searchBookDetail(String query) {
-        return searchRepository.findByText(query);
+    public List<Books> searchBookDetail(String author, String title) {
+        if (author != null || title != null) {
+            return searchRepository.findByAuthorAndTitle(author, title);
+        } else {
+            return booksRepository.findAll();
+        }
     }
 
 

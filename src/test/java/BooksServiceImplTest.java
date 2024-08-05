@@ -3,11 +3,13 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.print.Book;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import com.management.books.model.Books;
+import com.management.books.repository.SearchRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -26,6 +28,9 @@ class BooksServiceImplTest {
 
     @Mock
     private BooksRepository booksRepository;
+
+    @Mock
+    private SearchRepository searchRepository;
 
     private Books book1;
     private Books book2;
@@ -135,14 +140,29 @@ class BooksServiceImplTest {
         assertFalse(result);
         verify(booksRepository, never()).delete(any(Books.class));
     }
+    @Test
+    void testSearchBooksByAuthor() {
+        Books book = new Books("vikash", "title1", 2010, "asd");
+        when(searchRepository.findByAuthorAndTitle("vikash", null)).thenReturn(Arrays.asList(book));
+
+        List<Books> result = booksService.searchBookDetail("vikash", null);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals("vikash", result.get(0).getTitle());
+    }
 
     @Test
-    void testSearchBookDetail() {
-        when(booksRepository.findByTitleOrAuthor(anyString())).thenReturn(bookList);
+    void testSearchBooksByAuthorAndTitle() {
+        Books book = new Books("vikash", "title1", 2010, "asd");
+        when(searchRepository.findByAuthorAndTitle("vikash", "title1")).thenReturn(Arrays.asList(book));
 
-        List<Books> result = booksService.searchBookDetail("Book");
+        List<Books> result = booksService.searchBookDetail("vikash", "title1");
+
         assertNotNull(result);
-        assertEquals(bookList.size(), result.size());
-        verify(booksRepository, times(1)).findByTitleOrAuthor("Book");
+        assertEquals(1, result.size());
+        assertEquals("vikash", result.get(0).getTitle());
+        assertEquals("title1", result.get(0).getAuthor());
     }
+
 }

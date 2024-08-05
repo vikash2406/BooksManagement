@@ -80,16 +80,4 @@ class BookControllerTest {
         assertEquals("Book Title", result.getTitle());
     }
 
-
-    @Test
-    void testSearchBookDetail() {
-        List<Books> bookList = new ArrayList<>();
-        bookList.add(book1);
-        when(bookService.searchBookDetail(anyString())).thenReturn(bookList);
-
-        List<Books> result = bookController.searchBookDetail("Book Title");
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals("Book Title", result.get(0).getTitle());
-    }
 }

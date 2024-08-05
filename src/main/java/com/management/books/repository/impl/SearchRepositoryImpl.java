@@ -24,13 +24,26 @@ public class SearchRepositoryImpl implements SearchRepository {
     @Autowired
     private MongoConverter mongoConverter;
 
+
     @Override
-    public List<Books> findByText(String query) {
+    public List<Books> findByAuthorAndTitle(String author, String title) {
         List<Books> list = new ArrayList<>();
         MongoDatabase database = mongoClient.getDatabase("Books");
         MongoCollection<Document> collection = database.getCollection("books");
-        AggregateIterable<Document> result = collection.aggregate(Arrays.asList(new Document("$match",
-                new Document("author", query))));
+//        AggregateIterable<Document> result = collection.aggregate(Arrays.asList(new Document("$match",
+//                new Document("author", author)
+//        )));
+        List<Document> pipeline = new ArrayList<>();
+
+        if (author != null && !author.isEmpty()) {
+            pipeline.add(new Document("$match", new Document("author", author)));
+        }
+
+        if (title != null && !title.isEmpty()) {
+            pipeline.add(new Document("$match", new Document("title", title)));
+        }
+
+        AggregateIterable<Document> result = collection.aggregate(pipeline);
 
         result.forEach(doc-> list.add(mongoConverter.read(Books.class, doc)));
         return list;
