@@ -39,7 +39,7 @@ public class BookController {
         return bookService.getAllBooksDetail(page, size);
     }
 
-    @PostMapping(path = "")
+    @PostMapping(path = "", consumes ="application/json")
     public Books createBookDetail(@RequestBody Books data) {
         return bookService.saveBookDetail(new Books(data.getTitle(), data.getAuthor(), data.getPublishYear(), data.getIsbn()));
     }
@@ -49,7 +49,15 @@ public class BookController {
         if(Objects.isNull(bookId) || bookId.isEmpty()){
             throw new ResourceNotFoundException(Constants.INVALID_ID_MSG);
         }
-        return bookService.saveBookDetail(new Books(data.getTitle(), data.getAuthor(), data.getPublishYear(), data.getIsbn()));
+        Books book = bookService.getBookDetail(bookId);
+        if(Objects.isNull(book)){
+            throw new ResourceNotFoundException(Constants.INVALID_ID_MSG);
+        }
+        book.setTitle(data.getTitle());
+        book.setAuthor(data.getAuthor());
+        book.setPublishYear(data.getPublishYear());
+        book.setIsbn(data.getIsbn());
+        return bookService.saveBookDetail(book);
     }
 
     @DeleteMapping(path = "/{id}")
