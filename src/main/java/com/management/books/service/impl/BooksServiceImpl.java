@@ -2,6 +2,7 @@ package com.management.books.service.impl;
 
 
 import com.management.books.model.Books;
+import com.management.books.repository.SearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,8 @@ public class BooksServiceImpl implements BookService {
 
     @Autowired
     private BooksRepository booksRepository;
+    @Autowired
+    private SearchRepository searchRepository;
 
     @Override
     public Books getBookDetail(String id) {
@@ -51,7 +54,7 @@ public class BooksServiceImpl implements BookService {
 
     @Override
     public List<Books> searchBookDetail(String query) {
-        return booksRepository.findByTitleOrAuthor(query);
+        return searchRepository.findByText(query);
     }
 
 

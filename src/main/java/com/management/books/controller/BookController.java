@@ -69,8 +69,8 @@ public class BookController {
         bookService.deleteBooksDetail(bookId);
     }
 
-    @GetMapping(path = "/search")
-    public List<Books> searchBookDetail(@RequestParam String query) {
+    @GetMapping(path = "/search/{query}")
+    public List<Books> searchBookDetail(@PathVariable(value = "query") String query) {
         if(Objects.isNull(query) || query.isEmpty()){
             throw new ResourceNotFoundException(Constants.INVALID_QUERY_MSG);
         }
