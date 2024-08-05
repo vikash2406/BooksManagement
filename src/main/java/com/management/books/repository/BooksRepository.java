@@ -1,6 +1,6 @@
-package repository;
+package com.management.books.repository;
 
-import model.Books;
+import com.management.books.model.Books;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

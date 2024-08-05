@@ -1,15 +1,14 @@
-package service.impl;
+package com.management.books.service.impl;
 
 
-import model.Books;
+import com.management.books.model.Books;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import repository.BooksRepository;
-import service.BookService;
+import com.management.books.repository.BooksRepository;
+import com.management.books.service.BookService;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.UUID;
 

@@ -1,7 +1,7 @@
-package service;
+package com.management.books.service;
 
 
-import model.Books;
+import com.management.books.model.Books;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package src.main.java;
+package com.management.books;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

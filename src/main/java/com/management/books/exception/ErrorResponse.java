@@ -1,4 +1,4 @@
-package exception;
+package com.management.books.exception;
 
 import java.util.Date;
 

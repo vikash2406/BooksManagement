@@ -1,4 +1,4 @@
-package model;
+package com.management.books.model;
 
 
 import lombok.*;

@@ -1,4 +1,4 @@
-package src.main.java;
+package com.management.books;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

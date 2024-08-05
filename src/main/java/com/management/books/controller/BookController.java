@@ -1,8 +1,8 @@
-package controller;
+package com.management.books.controller;
 
 
-import exception.ResourceNotFoundException;
-import model.Books;
+import com.management.books.exception.ResourceNotFoundException;
+import com.management.books.model.Books;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import service.BookService;
-import util.Constants;
+import com.management.books.service.BookService;
+import com.management.books.util.Constants;
 
 import java.util.List;
 import java.util.Objects;

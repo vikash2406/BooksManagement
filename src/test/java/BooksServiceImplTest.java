@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import model.Books;
+import com.management.books.model.Books;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,8 +16,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import repository.BooksRepository;
-import service.impl.BooksServiceImpl;
+import com.management.books.repository.BooksRepository;
+import com.management.books.service.impl.BooksServiceImpl;
 
 class BooksServiceImplTest {
 
