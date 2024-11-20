@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.convert.MongoConverter;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -30,9 +29,6 @@ public class SearchRepositoryImpl implements SearchRepository {
         List<Books> list = new ArrayList<>();
         MongoDatabase database = mongoClient.getDatabase("Books");
         MongoCollection<Document> collection = database.getCollection("books");
-//        AggregateIterable<Document> result = collection.aggregate(Arrays.asList(new Document("$match",
-//                new Document("author", author)
-//        )));
         List<Document> pipeline = new ArrayList<>();
 
         if (author != null && !author.isEmpty()) {
